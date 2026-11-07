@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#102b3c" />
+    <meta name="description" content="Explore the Wandering Isles with Niko in an original, cozy platform adventure." />
+    <title>Niko and the Wandering Isles</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <a class="wordmark" href="#" aria-label="Niko and the Wandering Isles home"><span class="brand-mark">✦</span> WANDERING ISLES</a>
+        <div class="topbar-right"><span class="edition">A little island adventure</span><button id="sound-button" class="sound-button" type="button" aria-label="Toggle sound" title="Sound on/off">♪ <span>Sound off</span></button></div>
+      </header>
+      <section class="game-frame" aria-label="Game area">
+        <canvas id="game" width="960" height="540" tabindex="0" aria-label="Niko and the Wandering Isles platform adventure. Use the arrow keys or A and D to move, Space to jump, and Escape to pause."></canvas>
+        <div class="canvas-hint" id="canvas-hint">Click the game to focus</div>
+      </section>
+      <footer class="page-footer"><span>30 isles await beyond the horizon.</span><span>Move <kbd>←</kbd> <kbd>→</kbd> / <kbd>A</kbd> <kbd>D</kbd> · Jump <kbd>Space</kbd> · Pause <kbd>Esc</kbd></span></footer>
+    </main>
+    <script src="build/game-core.js"></script>
+    <script type="module" src="src/game.js"></script>
+  </body>
+</html>
