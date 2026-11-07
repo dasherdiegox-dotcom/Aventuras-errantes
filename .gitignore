@@ -1,0 +1,4 @@
+# Generated Emscripten output
+/build/
+*.wasm
+*.o
