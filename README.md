@@ -1,50 +1,31 @@
-# Niko and the Wandering Isles
+# Niko y las Islas Errantes
 
-An original, browser-playable exploration platformer starring Niko, a small island explorer. The first release is a complete, compact journey across 30 procedurally varied isles. It uses original canvas-drawn art and synthesized sound—no external game assets or gameplay network requests.
+Aventura original de plataformas para navegador, protagonizada por Niko. Incluye una travesía por 30 islas, controles táctiles y teclado, y funciona sin instalar Python, Emscripten, Node, paquetes ni recursos externos.
 
-## Requirements
+## Jugar
 
-- A modern browser with WebAssembly support.
-- Python 3 for the local static server.
-- Emscripten (`emcc`) to compile the C++ movement/collision core. Install the official Emscripten SDK and activate its environment before building (`source emsdk_env.sh` on macOS/Linux, or `emsdk_env.bat` in Windows Command Prompt). No SDL, raylib, npm packages, or downloaded assets are required.
+**La forma más sencilla:** descarga el repositorio como ZIP, descomprímelo y abre `index.html` con Safari, Chrome, Firefox o Edge. No necesita compilarse, usar Terminal ni ejecutar un servidor. También puedes abrir la página publicada en GitHub Pages desde cualquier dispositivo con navegador.
 
-## Build and run
+El juego dibuja sus gráficos y sonidos localmente. No requiere conexión a internet para jugar después de obtener los archivos. El diseño se adapta a pantallas pequeñas e incluye botones táctiles.
 
-From the repository root:
+## Controles
 
-```sh
-mkdir -p build
-emcc src/game.cpp -O2 -std=c++17 -s WASM=1 -s MODULARIZE=1 -s EXPORT_NAME=createGameCore -s ENVIRONMENT=web -s FILESYSTEM=0 -s EXPORTED_FUNCTIONS='["_reset_player","_clear_solids","_add_solid","_set_checkpoint","_move_player","_hurt_player","_player_x","_player_y","_player_vx","_player_vy","_player_width","_player_height","_player_grounded","_respawn_count"]' -s EXPORTED_RUNTIME_METHODS='["cwrap"]' -o build/game-core.js
-python3 -m http.server 8000
-```
+- Mover: flechas o **A / D**; pantalla táctil: botones ◀ ▶
+- Saltar: **Espacio** o **↑**; pantalla táctil: botón **SALTAR**
+- Pausar / continuar: **Esc** o **P**
+- Reiniciar la isla: **R**
+- Empezar: **Enter** o tocar/clicar el juego
+- Sonido: botón **Sonido** (apagado inicialmente)
+- Gamepad: palanca izquierda y botón A / X, si el navegador detecta uno
 
-Open <http://localhost:8000>. Serve over HTTP rather than opening `index.html` directly so the browser can load the WebAssembly module. The generated `build/` files are ignored by git and are not committed.
+En ordenador, haz clic en el juego para darle el foco antes de usar el teclado. Cambiar de pestaña pausa el juego.
 
-## Controls
+## Contenido
 
-- **Move:** Left/Right arrows or **A / D**
-- **Jump:** **Space** or Up arrow (release early for a shorter hop)
-- **Pause / resume:** **Escape** or **P**
-- **Restart the current isle:** **R**
-- **Start / continue:** **Enter** or click/tap the game
-- **Sound:** use the visible Sound button; sound starts muted and only plays after interaction
+La aventura comienza en la Costa del Viento y recorre 30 islas de paletas de color distintas. Cada tramo incluye plataformas y brechas, un ascensor móvil, peligros de viento señalizados, pinchos, criaturas patrulleras, fragmentos coleccionables, un checkpoint y una meta. El arte se genera con Canvas; el juego no descarga música, imágenes ni fuentes.
 
-Click the canvas first to focus it. The game pauses when its browser tab loses visibility.
+Las 30 islas comparten el diseño base con variaciones visuales: son una aventura prototipo, no 30 campañas hechas a mano.
 
-## What’s in this slice
+## Desarrollo
 
-Niko explores 30 named, procedurally varied island destinations in sequence, starting at Windfall Coast. Each journey includes a scrolling multi-screen route, jumps and ledges, a moving lift, marked spike gaps and wind gusts, patrol creatures, wind-shards, a checkpoint, a clue-marked cave nook, and a lantern goal. The C++/WebAssembly core handles delta-time movement, forgiving jump timing, and solid collision; JavaScript owns input, world progression, camera, procedural canvas art, UI, and presentation.
-
-## Debugging and checks
-
-There is no native debug build configured. For a native C++ compiler smoke check, use `c++ -std=c++17 -Wall -Wextra -pedantic -c src/game.cpp -o /tmp/niko-game.o`. The browser build command above is the authoritative integration build. Manual play-test checklist:
-
-1. Start with Enter/click, move with both keyboard layouts, jump and release early.
-2. Traverse the camera-scroll route; confirm gaps, ledges, lift and collectibles behave as shown.
-3. Touch a marked hazard or creature and confirm the player respawns; activate the mid-route checkpoint first and check the respawn location.
-4. Collect shards, visit the cave, reach the lantern, and continue until the 30th isle completion screen.
-5. Pause/resume, restart, resize the browser, and switch tabs to check focus and pause behavior.
-
-## Notes
-
-The 30 isles share the same readable core route with deterministic palette/layout variations; they are a prototype journey rather than 30 individually authored campaigns. There is no gamepad support in this initial slice. Google Fonts are an optional presentation enhancement; the game itself uses local system-font fallbacks and makes no runtime asset requests.
+No hay paso de build. Para jugar localmente, abre `index.html`. Para publicar, sirve los archivos estáticos de este repositorio (por ejemplo, con GitHub Pages). `src/game.js`, `style.css` e `index.html` son todo lo necesario para la versión de navegador; el antiguo `src/game.cpp` queda como experimento no utilizado.
